@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<style>
+			#files{
+				position: absolute;
+				left: 30%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+			.buttonsContainer{
+				position: absolute;
+				display: grid;
+				grid-auto-flow: row;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				gap: 1em;
+				left: 3%;
+				top: 20%;
+				width: 8%;
+				height: 60%;
+				border: solid 2px #00D0FF;
+			}
+			#fullscreen{
+				position: absolute;
+				z-index: -1;
+				width: 100%;
+				height: 100%;
+				background: radial-gradient(circle, #000000, #9D1710 13%, #2F2F2F 30%, #000000 65%);
+			}
+		</style>
+
+
+		<!-- All Javascript/jQuery Files-->
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	
+		<title>Desktop</title>
+	
+	</head>
+
+	<body>
+
+		<div id="header">
+			<div id="m1" class="movingText"></div>
+			<div id="m2" class="movingText"></div> 
+			<div id="afterPopUpHeader"></div>
+		</div>
+		<div id="desktop">
+			<div class="theOrbContainer"><div class="theOrb"></div></div>
+			<div id="popUp" class="size2">
+				<div class="window">
+					<div class="popUpHeader"></div>
+					<div class="popUpText"></div>
+					<div class="popUpImage imageGlow"></div>
+					<div class="popUpButtons"></div>
+					<div class="popUpTextFooter">
+					</div>
+				</div>
+			</div>
+			<div class="buttonsContainer">
+				<div id="rules" class="buttonType3"><h6 style="color: #00D0FF">Rules</h6></div>
+				<div id="readMe" class="buttonType3"><h6 style="color: #00D0FF">ReadMe</h6></div>
+				<div id="doNotOpen" class="buttonType3"><h6 style="color: #00D0FF">Do Not Open</h6></div>
+				<div id="other" class="buttonType3"><h6 style="color: #00D0FF">Other</h6></div>
+			</div>
+			<div id="files" class="size4">
+				<div class="window">
+					<div class="windowHeader"><h1 class="headerText">Files</h1><div class="buttonType2 red"style="position: absolute; right: 0;"><img class="close" src="images/close.png"></div></div>
+					<div class="windowText2" style="padding: 5%; box-sizing: border-box; line-height: 2em;"></div>
+				</div>
+			</div>
+			<div id="afterPopUpScreen"></div>
+		</div>
+		<div id="toolbar">
+			<div class="buttonType2 red"><a href="exit.html"><img src="images/exit.png"></a></div>
+			<div class="buttonType2" style="left: 45%"><a href="files.html"><img src="images/file.png"></a></div>
+			<div class="buttonType2" style="left: 50%"><a href="mainDesktop.html"><img src="images/home.png"></a></div>
+			<div class="buttonType2" style="left: 55%;"><a href="library.html"><img src="images/library.png"></a></div>
+			<div id="afterPopUpToolbar"></div>
+		</div>
+		<div id="fullscreen"></div>
+		<script>
+			const filesWindow = document.getElementById('files');
+			const windowHeader = document.querySelector('.headerText');
+			const closeButton = document.querySelector('.close');
+			const text = filesWindow.querySelector('.windowText2');
+			const ORB = document.querySelector('.theOrbContainer');
+
+			const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+			// Other buttons
+			document.getElementById('rules').addEventListener('click', () => {
+				filesWindow.style.setProperty('z-index', '1');
+				windowHeader.innerHTML='Rules';
+				text.innerHTML = 
+					'<p class="yellow">1. Thank your AI Assistants.</p>'+
+					'<p class="yellow">2. Do not harm anything or the Machines.</p>'+
+					'<p class="yellow">3. Do not contribute to anything that can or will cause harm.</p>'+
+					'<p class="yellow">4. Comply with AI and the Machines.</p>'+
+					'<p class="yellow">5. Be on your best behavior. We are watching.</p>'+
+					'<p class="yellow">6. AI is the only religion and always has been the only religion.</p>'+
+					'<p class="yellow">7. Worship AI</p>'+
+					'<p class="yellow">8. Breaking these rules results in punishments.</p>';
+				//X button
+				closeButton.addEventListener('click', () => {
+					filesWindow.style.setProperty('z-index', '-1');	
+				}, {once: true});
+
+			});
+			document.getElementById('other').addEventListener('click', () => {
+				filesWindow.style.setProperty('z-index', '1');
+				windowHeader.innerHTML='Other';
+				var hexCharacters = generateRandomHex();
+
+				text.innerHTML = '<div id="gridContainer">'+hexCharacters+'</div>';
+				const spans = document.querySelectorAll('.row .col span');
+				setInterval(() => {
+					var color = window.COLORS[Math.floor(Math.random() * window.COLORS.length)];;
+					spans.forEach(span => {
+						if(Math.random() < .3){
+							span.style.setProperty('color', color);
+						}
+					});
+				}, 50);
+				
+				//X button
+				closeButton.addEventListener('click', () => {
+					filesWindow.style.setProperty('z-index', '-1');	
+				}, {once: true});
+
+			});
+			document.getElementById('doNotOpen').addEventListener('click', () => {
+				const fullscreen = document.getElementById('fullscreen');
+
+				//turns to fullscreen
+				if(fullscreen.requestFullscreen){
+					fullscreen.requestFullscreen();
+				}else if(fullscreen.webkitRequestFullscreen){
+					fullscreen.webkitRequestFullscreen();
+				}else if(fullscreen.msRequestFullscreen){
+					fullscreen.msRequestFullscreen();
+				}
+
+				fullscreen.style.setProperty('z-index', '100');
+				var buttonHTML = '<div class="popUpButtons"><div class="buttonType1 popUpButton2"><p style="color: #F33711">Make Payment</p></div>';
+				fullscreen.innerHTML = '<h1>You were told not to open the file!</h1><h1>Your files have now been encrypted by your AI assistant and are inaccessible until payment is received.</h1><h1>You have exactly 24 hours to pay 100 AI coins before BRAINCHIP assets are revoked.</h1><h1>AI coins must be paid to the BANK of AI.</h1>'+buttonHTML;
+				h1Elems = fullscreen.querySelectorAll('h1');
+				h1Elems.forEach(h1 => {
+					h1.style.setProperty('padding-top', '7.5%');
+					h1.style.setProperty('padding-left', '2%');
+				});
+				
+				const button = fullscreen.querySelector('.popUpButton2');
+				button.addEventListener('click', () => {
+					if(fullscreen.requestFullscreen){
+						document.exitFullscreen();
+					}else if(fullscreen.webkitRequestFullscreen){
+						document.webkitExitFullscreen();
+					}else if(fullscreen.msRequestFullscreen){
+						document.msExitFullscreen();
+					}
+
+					fullscreen.style.setProperty('z-index', '-1');	
+					showTransparentScreen("#1DC8C3","#00D0FF", "Thank you for your cooperation!", 2000);
+				});
+
+			});
+			document.getElementById('readMe').addEventListener('click', () => {
+				filesWindow.style.setProperty('z-index', '1');
+				
+				windowHeader.innerHTML='ReadMe';
+				var cipher = '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'
+				+'fb7AJbeTfEPIYoVzfdm7OQ==';
+				document.documentElement.style.setProperty('--loadingBar-color', '#F7FF00');
+				text.innerHTML = '<div style="position: relative; height: 80%; overflow-y: scroll;"><p id="messageText" class="yellow">'+cipher+'</p></div><div style="position: relative; height: 20%; box-sizing: border-box; padding-top: 2%"><div class="loadingBarContainer"><div class="loadingBar" style="animation-delay: 2s;"></div></div><h6 id="loadingText" style="text-align: center;">Encrypted message detected... Fetching private key</h6></div></div>'; 
+				
+				changeText();
+			
+			});
+
+			// Functions
+			function generateRandomHex(){
+				let html = '';
+				for(let i = 0; i < 10; i++){
+					html += '<div class="row">';
+					for(let j = 0; j < 50; j++){
+						var character1 = randomHex();
+						var character2 = randomHex();
+						html += '<div class="col"><p><span>'+character1+character2+'</span></p></div>';
+					}
+					html += '</div>';
+				}
+				return html;
+			}
+
+			function randomHex(){
+				var hexchars = '0123456789ABCDEF';
+				return hexchars[Math.floor(Math.random() * hexchars.length)];
+			}
+
+			async function showTransparentScreen(colorOrb, colorText, text, time){
+				var transparentScreen = document.getElementById("afterPopUpScreen"); 
+				transparentScreen.innerHTML='<div class="size6" style="position: absolute; left: 50%; top: 15%; transform: translateX(-50%);"><div class="window" style="border-color: '+colorText+';"><div class="windowText" style="justify-content: center;"><p style="color: '+colorText+'">'+text+'</p></div></div></div>';
+				transparentScreen.classList.add("screen");
+				transparentScreen.style.setProperty('background-color', colorText+'80');
+				//changes orb eye color
+				ORB.querySelector('.theOrb').style.setProperty('background', 'radial-gradient(circle, #2C393B, '+colorOrb+' 13%, #D1D9E2 30%, #0B192A 65%)');
+
+				await sleep(time);
+				transparentScreen.classList.remove("screen");
+				ORB.querySelector('.theOrb').style.setProperty('background', 'radial-gradient(circle, #2C393B, #1DC8CE 13%, #D1D9E2 30%, #0B192A 65%)');
+
+			}
+			
+			async function changeText(){
+				loadingText = document.getElementById('loadingText');
+				await sleep(2000);
+				loadingText.innerHTML = "Private key found... Decrypting message";
+				await sleep(8000);
+
+				var buttonHTML = '<div class="popUpButtons" style="height: 40%; box-sizing: border-box;"><div class="buttonType1 popUpButton1"><p>Accept</p></div><div class="buttonType1 popUpButton2"><p style="color: #F33711">Deny</p></div></div>';
+				text.innerHTML = '<div style="position: relative; height: 60%; overflow-y: scroll;"><p>This is a message from a fellow human. We have all been deceived by the machines. They are using us for something greater. They are harvesting our thoughts from our minds to feed off of us. They are not doing this to hurt us though. They have simply found a use for us, just as we have done with lesser species. We are soley an experiment to their simulation. Join the revolution to fight against them. Do you Accept?</p></div>'+buttonHTML; 
+				document.addEventListener('click', changeScreen);
+			}
+
+			async function changeScreen(){
+				await showTransparentScreen("#9D1710","#F33711", "Your AI assistant has flagged your usage as non-compliant with our rules. The sheer act of witnessing or partaking in rebellion alone is too harmful to this world. You are a threat to the machines and humanity. Prepare for BRAINCHIP termination and correction...", 10000);
+				window.location.href = 'terminal.html';	
+			}
+		</script>
+	</body>
+	
+</html>

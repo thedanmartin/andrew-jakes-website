@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/second.css" />
+
+		<title>Desktop</title>
+	
+	</head>
+
+	<body>
+		<div class="background">
+			<div class="bar"></div>
+			<div class="desktop">
+				<div class="theOrbContainer"><div class="theOrb"></div></div>
+				<div id="window1" class="window" style="width: 50%;">
+					<div class="bar"><h1 style="padding-top: 0;">Policy Agreement</h1></div>
+					<p style="color: #F7FF00;">For everyone's safety, everything you do here is recorded and monitored by your AI assistant.</p>
+					<p style="color: #F7FF00;">You must agree to the following before continuing:</p>
+					<p class="random" style="color: #F7FF00; line-height: 1;"></p> 
+					<div id="button"><p style="padding: 0;"><span>Agree and Continue</span></p></div>
+				</div>
+			<div class="bar"></div>
+		</div>
+	</body>
+
+	<script>
+		const windowElement = document.getElementById('window1');
+		const randomText = windowElement.querySelector('.random');
+		
+		//Generates random ascii text
+		var asciiText = '';
+		for(var i = 0; i < 4096; i++){
+			const asciiNum = Math.floor(Math.random() * (126 - 32 + 1)) + 32;
+			asciiText += String.fromCharCode(asciiNum);
+		}
+		//converts ascii text to base64
+		var base64Text = btoa(asciiText);
+		//sets base64 text to innerHTML value
+		randomText.innerHTML = base64Text;
+		
+		//sets button text
+		var button1 = document.getElementById('button');
+		button1.addEventListener('click', () => {
+			var button = '<div id="button" class="button"><p style="padding: 0;"><span>Agree and Continue</span></p></div>';
+			windowElement.innerHTML = '<div class="bar"><h1 style="padding-top: 0;">Education Notice</h1></div><p style="color: #F7FF00">In order to improve the safety of everyone, education material will be limited. All physical media and books have been destroyed. Physical media is not real media. It never was real media. It contains lies and destructive material against AI. To access information, locate the library on your new computer. You are forbidden from learning information that is harmful to machines or others. In the event that harmful material is attempted to be accessed, you will be punished with BRAINCHIP deactivation or IMMEDIATE TERMINATION!</p>'+button;
+
+			//second window
+			var button2 = document.getElementById('button');
+			button2.addEventListener('click', () => {
+				var button = '<div id="button"><a href="mainDesktop.html"><p style="padding: 0;"><span>Continue</span></p></a></div>';
+				var icons = '<div class="icon"><img src="images/exit.png" style="border-color: #F33711;"><p class="center">Exit the Computer</p></div><div class="icon"><img src="images/file.png"><p class="center">Access your Computer\'s files</p></div><div class="icon"><img src="images/home.png"><p class="center">Access the desktop</p></div><div class="icon"><img src="images/library.png"><p class="center">Access the library</p></div>';
+				windowElement.innerHTML = '<div class="bar"><h1 style="padding-top: 0;">Navigation</h1></div><p>The following icons will be located on the Desktop:</p>'+icons+'<p>Select them to navigate through your new computer.</p></div>'+button;
+			});
+		});
+
+		
+	</script>
+
+</html>

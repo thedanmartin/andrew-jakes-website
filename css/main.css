@@ -1,0 +1,400 @@
+:root{
+	--loadingBar-color:#00D0FF;
+	--popUp-SpawnTime:.25;
+}
+
+html{
+	scrollbar-color: #00D0FF transparent;	
+}
+body{
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* ----FONTS------------------------------------------ */
+@font-face {
+	font-family: 'header';
+	src: url('../fonts/Iceberg-Regular.woff2') format( 'woff2');
+}
+@font-face {
+	font-family: 'paragraph';
+	src: url('../fonts/Audiowide-Regular.woff2');
+}
+
+
+/* ----IMAGE PROPERTIES -----------------------------*/
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+.imageGlow{
+	--color: #00D0FF;
+	filter: drop-shadow(0 0 5px var(--color)) drop-shadow(0 0 10px var(--color)) drop-shadow(0 0 15px var(--color)); 
+}
+/* ----BUTTONS ---------------------------------------*/
+.buttonType1{ /* accept/deny button */
+	width: 25%;
+	height: 50px;
+	background-color: transparent;
+	border: #00D0FF 2px solid;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.buttonType2{ /* Changes HTML Pages */
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px;
+	height: 100%;
+	aspect-ratio: 1/1;
+	background-color: #040B15;
+	border: 1px solid #00D0FF;
+	box-sizing: border-box;
+}
+.buttonType2:hover{
+	background-color: #0263AD;
+}
+.buttonType3{ /* changes HTML content */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 90%;
+	aspect-ratio: 1/1;
+	border: 2px solid #00D0FF;
+	background-color: #1E0F1D;
+}
+.buttonType3:hover{
+	background-color: #54295C;
+}
+
+.red{
+	border-color: #F33711;
+}
+.red:hover{
+	background-color: #681804;
+}
+/* ----TEXT STUFF------------------------- */
+
+h1{
+	font-size: 40px;
+	color: #F33711;
+	font-family: 'header';	
+}
+p{
+	font-size: 25px;
+	color: #00D0FF;
+	line-height: 1.4;
+	font-family: 'paragraph';
+}
+h6{
+	font-size:15px;
+	color: #F7FF00;
+	line-height: 1.2;
+	font-family: 'paragraph';
+}
+.yellow{
+	color: #F7FF00;
+}
+.centerText{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* -----HEADER---------------------------------------- */
+#header{
+	position: absolute;
+	height: 8%;
+	width: 100%;
+	background-color: #1F363D;
+	overflow: hidden;
+}
+.movingText{
+	position: absolute;
+	display: flex;
+	height: 100%;
+	align-items: center;
+	white-space: nowrap;
+}
+
+/* -----DESKTOP--------------------------------------- */
+#desktop{
+	position: absolute;
+	top: 8%;
+	height: 85%;
+	width: 100%;
+	background-color: #0B192A;
+}
+.theOrbContainer{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	height: 100%;
+	aspect-ratio: 1/1;
+}
+.theOrb{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	/* second is eye color */
+	background: radial-gradient(circle, #2C393B, #1DC8CE 13%, #D1D9E2 30%, #0B192A 65%);
+}
+/* ------WINDOWS ----- */
+.window{
+	position: relative;
+	height: 100%;
+	width: 100%;
+	border: 2px solid #00D0FF;
+	background: #000000A0; /* last 2 hex is for opacity */
+}
+
+.size2{ /* Used for main popup*/
+	height: 60%;
+	width: 460px;
+}
+.size3{ /* Used for library*/
+	height: 60%;
+	width: 45%;
+}
+.size4{ /* Used for files*/
+	height: 640px;
+	width: 630px;
+}
+.size5{ /* Used for error message*/
+	height: 300px;
+	width: 1000px;
+}
+.size6{ /* Used for transparent screen message*/
+	height: auto;
+	width: 730px;
+}
+
+.windowHeader{ /* Used as header for windows - similar to popUpHeader but this can be used for any window*/
+	position: relative;
+	height: 65px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #1F363D;
+}
+.windowText{ /* for transparent screen */
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 5%;
+	overflow-wrap: break-word;
+}
+.windowText2{ /* for other windows*/
+	position: relative;
+	height: 87%;
+	width: 100%;
+	overflow-wrap: break-word;
+	overflow-y: scroll;
+}
+
+/* ------POPUPS--------------------------------------*/
+/* popUp uses attributes from window class for simplicity and reusability*/
+#popUp{
+	position: absolute;
+	top: 50%;
+	left: 80%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+}
+.popUpHeader{
+	position: relative;
+	height: 60px;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #1F363D;
+}
+.popUpText{
+	position: relative;
+	height: 20%;
+	padding: 5%;
+	overflow-y: scroll;
+	overflow-wrap: break-word;
+}
+.popUpImage{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 20%;
+	padding-top: 5%;
+}
+.popUpButtons{
+	position: relative;
+	display: flex;
+	height: 10%;
+	padding-top: 10%;
+}
+.popUpButton1{
+	position: relative;
+	left: 25%;
+	transform: translate(-50%, 0);
+}
+.popUpButton1:hover{
+	background-color: #0263AD;
+}
+.popUpButton2{
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border-color: #F33711;
+}
+.popUpButton2:hover{
+	background-color: #681804;
+}
+.popUpTextFooter{
+	position: relative;
+	height: 10%;
+	padding-left: 5%;
+	padding-top: 5%;
+	overflow-wrap: break-word;
+}
+/* ------SCREENS AFTER POPUP ACCEPT/DENY -------------*/
+#afterPopUpHeader{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+}
+#afterPopUpHeader.screen{
+	background-color: #1F363D;
+	z-index: 100;
+}
+
+#afterPopUpScreen{
+	position: absolute;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+}
+#afterPopUpScreen.screen{
+	z-index: 100;
+}
+
+#afterPopUpToolbar{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+}
+#afterPopUpToolbar.screen{
+	background-color: #1F363D;
+	z-index: 100;
+}
+/* -----MISCELLANEOUS-------------------------------- */
+.turnOn{ /* Triggers animation that looks like TV screen turning on */
+	animation: turnOn calc(var(--popUp-SpawnTime)*1s) linear forwards;
+}
+.turnOff{
+	animation: turnOff calc(var(--popUp-SpawnTime)*1s) linear forwards;
+}
+.imageContainer{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	top: 5%;
+	margin-bottom: 5%;
+	width: 100%;
+	height: 70%;
+
+}
+.loadingBarContainer{
+	position: relative;
+	height: 25px;
+	width: 75%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	background-color: white;
+}
+.loadingBar{
+	position: relative;
+	height: 100%;
+	width: 0%;
+	background-color: var(--loadingBar-color);
+	
+	animation: loadBarTwo 10s linear forwards;
+}
+
+span{
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	color: #00FF00;
+	font-size: 25px;
+}
+#gridContainer{
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+.row{
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+}
+.col{
+	position: relative;
+}
+.green{
+	animation: 5s green linear;
+}
+/* ------TOOLBAR------------------------------------- */
+#toolbar{
+	position: absolute;
+	top: 93%;
+	height: 7%;
+	width: 100%;
+	background-color: #1F363D;
+}
+
+/* ------ANIMATIONS ---------------------------------*/
+@keyframes green{
+	0%{}
+	50%{color: #FFFFFF;}
+	75%{color: #FFFFFF;}
+	80%{color: #00FF00;}
+	90%{color: #FFFFFF;}
+	100%{color: #FFFFFF;}
+}
+@keyframes turnOn{
+	0%{height: 0%;}
+	100%{height: 100%;}
+}
+@keyframes turnOff{
+	0%{height: 100%;}
+	100%{height: 0%;}
+}
+@keyframes loadBarOne{ /* Triggered with javascript */
+	0%{width: 0%;}
+	25%{width: 75%;}
+	30%{width: 80%;}
+	35%{width: 50%;}
+	65%{width: 99%;}
+	75%{width: 100%; background-color: var(--loadingBar-color);}
+	82.5%,87.5%,92.5%,97.5%{background-color: white;}
+	80%,85%,90%,95%{background-color:var(--loadingBar-color);}
+	100%{width: 100%; background-color: var(--loadingBar-color);}
+}
+@keyframes loadBarTwo{ /* Default */
+	0%{width: 0%;}
+	50%{width: 80%;}
+	65%{width: 99%;}
+	75%{width: 100%; background-color: var(--loadingBar-color);}
+	82.5%,87.5%,92.5%,97.5%{background-color: white;}
+	80%,85%,90%,95%{background-color:var(--loadingBar-color);}
+	100%{width: 100%; background-color: var(--loadingBar-color);}
+}
+

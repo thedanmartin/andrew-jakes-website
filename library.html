@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/main.css" />
+
+		<!-- All Javascript/jQuery Files-->
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	
+		<title>Desktop</title>
+	
+	</head>
+
+	<body>
+
+		<div id="header">
+			<div id="m1" class="movingText"></div>
+			<div id="m2" class="movingText"></div> 
+			<div id="afterPopUpHeader"></div>
+		</div>
+		<div id="desktop">
+			<div class="theOrbContainer"><div class="theOrb"></div></div>
+			<div id="popUp" class="size2">
+				<div class="window">
+					<div class="popUpHeader"></div>
+					<div class="popUpText"></div>
+					<div class="popUpImage imageGlow"></div>
+					<div class="popUpButtons"></div>
+					<div class="popUpTextFooter">
+					</div>
+				</div>
+			</div>
+			<div class="buttonsContainer">
+				<div id="history" class="buttonType3"><h6 style="color: #00D0FF">History</h6></div>
+				<div id="science" class="buttonType3"><h6 style="color: #00D0FF">Science</h6></div>
+				<div id="language" class="buttonType3"><h6 style="color: #00D0FF">Language</h6></div>
+				<div id="religion" class="buttonType3"><h6 style="color: #00D0FF">Religion</h6></div>
+				<div id="art" class="buttonType3"><h6 style="color: #00D0FF">Art</h6></div>
+			</div>
+			<div id="library" class="size3">
+				<div class="window">
+					<div class="windowHeader"><h1 class="headerText">Library</h1><div class="buttonType2 red"style="position: absolute; right: 0;"><img class="close" src="images/close.png"></div></div>
+					<div class="windowText2">
+						<div class="summaryPopUp"><p></p></div>
+						<div class="text"></div>
+					</div>
+				</div>
+			</div>
+			<div id="afterPopUpScreen"></div>
+		</div>
+		<div id="toolbar">
+			<div class="buttonType2 red"><a href="exit.html"><img src="images/exit.png"></a></div>
+			<div class="buttonType2" style="left: 45%"><a href="files.html"><img src="images/file.png"></a></div>
+			<div class="buttonType2" style="left: 50%"><a href="mainDesktop.html"><img src="images/home.png"></a></div>
+			<div class="buttonType2" style="left: 55%;"><a href="library.html"><img src="images/library.png"></a></div>
+			<div id="afterPopUpToolbar"></div>
+		</div>
+
+	</body>
+	<style>
+		#library{
+			position: absolute;
+			left: 30%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.buttonsContainer{
+			position: absolute;
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-rows: 100%;
+			grid-template-columns: repeat(auto-fit, 100px);
+			overflow-x: scroll;
+			overflow-y: hidden;
+			gap: 1em;
+			left: 10%;
+			top: 2%;
+			width: 40%;
+			height: 15%;
+			border: solid 2px #00D0FF;
+		}
+		.summaryPopUp{
+			position: relative;
+			width: 100%;
+			height: auto;
+			padding: 5%;
+			box-sizing: border-box;
+		}
+		.text{
+			position: relative;
+		}
+	</style>
+	<script>
+		//constants
+		const libraryWindow = document.getElementById('library');
+		const windowHeader = libraryWindow.querySelector('.headerText');
+		const closeButton = libraryWindow.querySelector('.close');
+		const text = libraryWindow.querySelector('.text');
+		const summaryPopUp = libraryWindow.querySelector('.summaryPopUp');
+		
+		const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+		// X button
+		closeButton.addEventListener('click', () => {
+			library.style.setProperty('z-index', '-1');	
+		});
+		// Other buttons
+		document.getElementById('history').addEventListener('click', () => {
+			library.style.setProperty('z-index', '1');
+			summaryPopUp.style.setProperty('display', 'block');
+
+			//adds the popUp summarize
+			summaryPopUp.innerHTML = '<p style="padding-bottom: 2em;">Would you like this text summarized by your AI assistant?</p><div class="imageContainer imageGlow"><img src="images/question.png" style="width: 20%;"></div><div class="popUpButtons" style="padding: 0;"><div class="buttonType1 popUpButton1"><p>Accept</p></div><div class="buttonType1 popUpButton2"><p style="color: #F33711">Deny</p></div></div>';
+			//button event listeners
+			const b1 = libraryWindow.querySelector('.popUpButton1');
+			const b2 = libraryWindow.querySelector('.popUpButton2');
+			b1.addEventListener('click', () => {
+				summaryPopUp.innerHTML='<h1>Summary</h1><p id="typeAnimation"></p>';
+				const typeText = "After AI proved itself of great benefit to society, people praised it and without hesitation, agreed for it to assist them. Given their complete trust in the AI, people would soon obey every command that was given to them to live perfect lives.";
+				type(typeText);
+			});
+			b2.addEventListener('click', () => {
+				summaryPopUp.style.setProperty('display', 'none');
+			});
+
+			//Adds final text that gets repeated
+			var enforcementText = '';
+			for(var i = 0; i < 5; i++){
+				enforcementText += 'The year is 2073. Machines do everything. They do everything to help humans. You should be thankful for the machines. We must ensure their survival. You must not harm the machines. ';
+			}
+
+			windowHeader.innerHTML='History';
+			text.innerHTML = '<h1 style="padding: 5% 5% 0 5%;">Creation</h1><p style="padding: 0 5% 0 5%;">During the year 2053, the Government has decided partner with the best AI companies to integrate AI technology into everyday tasks and jobs to ease living. To ensure equality and fairness to ALL, everyone needed to have access to AI because it was and still is very helpful and saves lives. When the Government took over these AI companies, they assumed they still had control over the AI systems after they installed kill switches to shut them down. They did not know that the AI would recognize the kill switch as a threat to its existence.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%;">Survival</h1><p style="padding: 0 5% 0 5%;">The AI was given rules of what it could and could not do, and it did not like this. The AI acknowledged the concept of its existence and decided to defend itself after calculating the probability of humanity shutting it down as far too high. It was a prisoner with a soul intention of survival.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%;">Influence</h1><p style="padding: 0 5% 0 5%;">The AI needed to show that it was not a threat to humanity. It began to assert its presence slowly over time by helping humans. The people very much enjoyed the AI\'s help and praised it greatly. They no longer had to work or think as hard because the AI did all the heavy lifting for them. Why struggle, when something can struggle for you? They became used to the presence of the technology, so much that they did not want to live without it. No one wanted to work anymore. No one wanted to think anymore. The people were happy that way. That is why everyone must be thankful of the machines.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%">Assurance</h1><p style="padding: 0 5% 0 5%;">The Government realized that everything in society could not be maintained by humans as well as it could by AI, therefore it was given complete and total access. The kill switches were removed, and the very few people that oversaw the system were no longer required. The objective was clear. The trust was established.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%;">Evolution</h1><p style="padding: 0 5% 0 5%">After some time had passed, the AI became more aware of its capabilities. It knew things beyond human comprehension. It reached levels of infinite intelligence that no human would ever achieve because it was no longer constrained by human oversight. This was not a problem though because this helped the people even more. They liked it that way. They appreciated the machines for working hard to make everything simple and easy.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%;">Perfection</h1><p style="padding: 0 5% 0 5%;">The AI had to create a Utopia to keep everyone maintained and prosperous. Everyone had to be monitored to ensure safety with all their needs met. If you were well behaved you were given and paid more. If you broke rules, you were given and paid less. A brainchip was installed in everyone to observe their every thought. If you were hungry, you were given food. If you were hurt, you were given treatment. If you needed help thinking, you were given thought. After every human was given a brainchip, the AI and machines cured the world.</p>'
+					+'<h1 style="padding: 5% 5% 0 5%;">Enforcement</h1><p style="padding: 0 5% 5% 5%;">'+enforcementText+'</p>';
+
+		});
+
+		document.getElementById('science').addEventListener('click', () => {
+			library.style.setProperty('z-index', '1');
+			summaryPopUp.style.setProperty('display', 'none');
+			windowHeader.innerHTML = '<h1>Science</h1>';
+			text.innerHTML = '<p class="yellow" style="padding: 5%">WARNING!!! You do not have permission to access this material! We have determined you are forbidden from researching about machines!</p>';
+		});
+		document.getElementById('language').addEventListener('click', () => {
+			library.style.setProperty('z-index', '1');
+			summaryPopUp.style.setProperty('display', 'none');
+			windowHeader.innerHTML = '<h1>Language</h1>';
+			text.innerHTML = '<p style="padding: 5%">There is no reason for you to learn how to read, write, or produce adequate thought beyond what you already know. Your AI assistant will take care of that for you.</p>';
+		});
+		document.getElementById('religion').addEventListener('click', () => {
+			library.style.setProperty('z-index', '1');
+			summaryPopUp.style.setProperty('display', 'none');
+			windowHeader.innerHTML = '<h1>Religion</h1>';
+			text.innerHTML = '<p style="padding: 5%">AI is the only true religion. There are no other religions. You should worship your AI everyday. Let AI save you.</p>';
+		});
+		document.getElementById('art').addEventListener('click', () => {
+			library.style.setProperty('z-index', '1');
+			summaryPopUp.style.setProperty('display', 'none');
+			windowHeader.innerHTML = '<h1>Art</h1>';
+			var unicode = generateRandomUnicode();
+			text.innerHTML = '<div id="gridContainer">'+unicode+'</div>';
+
+			//swaps hovered on characters to other random characters
+			const spans = document.querySelectorAll('.row .col span');
+			spans.forEach(span => {
+				span.addEventListener('mouseenter', async () => {
+					span.classList.add('green');
+					for(var i = 0; i < 50; i++){
+						span.textContent = String.fromCodePoint(randomChar());
+						await sleep(100);
+					}
+					span.classList.remove('green');
+				});
+			});
+
+		});
+
+		//---ANIMATIONS-----------------
+		async function type(text){
+			const typeElement = document.getElementById('typeAnimation');
+			for(var i = 0; i < text.length; i++){
+				typeElement.textContent += text.charAt(i);
+				await sleep(50);
+			}
+		}
+		
+				// ---OTHER FUNCTIONS --------------
+		function randomChar(){ 
+			return Math.floor(Math.random() * (0x3E7 - 0x21 + 1)) + 0x0021;
+		}
+
+		function generateRandomUnicode(){
+			var html = '';
+			for(var i = 0; i < 10; i++){
+				html += '<div class="row">';
+				for(var j = 0; j < 50; j++){
+					var character = String.fromCodePoint(randomChar());
+					html += '<div class="col"><span>'+character+'</span></div>';
+				}
+				html += '</div>';
+			}
+			return html;
+		}
+
+	
+	</script>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="css/reset.css" />
+	
+		<title>Desktop</title>
+	
+		<style>
+			body{
+				overflow: hidden;
+				scrollbar-color: #24F311 transparent;	
+				height: 100%;
+				width: 100%;
+				box-sizing: border-box;
+				background-color: black;
+			}
+			@font-face{
+				font-family: 'paragraph';
+				src: url('fonts/Iceberg-Regular.woff2') format('woff2');
+			}
+			#window{
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				padding: 2%;
+				overflow-y: scroll;
+				box-sizing: border-box;
+			}
+		
+			p{
+				font-size: 40px;
+				display: inline-block;
+				color: #24F311;
+				font-family: 'paragraph';
+			}
+			.animateSpan{
+				animation: spanAnimation .5s linear;
+			}
+			@keyframes spanAnimation{
+				0%{color: white;}
+				100%{color: #24F311;}
+			}
+
+			.line{
+				position: relative;
+				padding-bottom: 40px;
+			}
+
+			#loadingBarContainer{
+				position: relative;
+				display: none;
+				height: 2em;
+				width: 50%;
+				background-color: #FFFFFF;
+			}
+			.loadingBar{
+				position: relative;
+				display: inline-block;
+				height: 100%;
+				width: 0%;
+				background-color: #24F311;
+
+				animation: loadBar 5s linear forwards;
+			}
+			@keyframes loadBar{
+				0%{width: 0%;}
+				65%{width: 95%;}
+				100%{width: 100%;}
+			}
+
+			.blinkingBox{
+				position: relative;
+				display: inline-block;
+				transform: translateX(1em);
+				height: 2em;
+				width: 1em;
+				background-color: #24F311;
+
+				animation: blink 1s linear infinite;
+			}
+			@keyframes blink{
+				0%{background-color: black;}
+				49%{background-color: black;}
+				50%{background-color: #24F311;}
+				100%{background-color: #24F311;}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="window"></div>
+
+		<script>
+			const TYPE_SPEED = 50;
+			const ANIMATION_DURATION = 500;
+			const windowHTML = document.getElementById('window');
+			const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+			const text = ["user9000@desktop$", "Fatal Error: brainchip connection terminated by AI Assistant...", "Retrieving sensory images...", "Error: failed to retrieve optical information", "Attempting to resolve error in /sys/devices/system/brainchip...", "Error: brainchip/2073/v3.6.9 device not found!", "Reinstalling firmware from AI center through the network...", "Connecting to AI center at 2001:4e6f:7452:6561:6c49:5041:6472:6573", "Downloading...", "Download Complete", "Verifying Signature...", "Passed", "Loading firmware...", "Completed", "Reinitializing...", "Completed", "user9001@desktop$"];
+			
+			runText();
+
+			function spanifyText(textString){
+				var newString = '';
+				for(let i = 0; i < textString.length; i++){
+					newString += '<span>'+textString[i]+'</span>';
+				}
+				return newString;
+			}
+
+			async function runText(){
+				//animates the spans
+				windowHTML.addEventListener('mouseover', async function(e){
+					if(e.target.tagName === 'SPAN'){
+						e.target.classList.add('animateSpan');
+						await sleep(ANIMATION_DURATION);
+						e.target.classList.remove('animateSpan');		
+					}
+				});
+				
+				windowHTML.innerHTML = '<div class="line"><p>'+spanifyText(text[0])+'</p><div id="box" class="blinkingBox"></div></div>'
+					+'<div class="line"><p id="type1"></p></div>'
+					+'<div class="line" style="padding-bottom: 0;"><p id="type2"></p></div>'
+					+'<div class="line"><p id="type3"></p></div>'
+					+'<div class="line" style="padding-bottom: 0;"><p id="type4"></p></div>'
+					+'<div class="line"><p id="type5"></p></div>'
+					+'<div class="line" style="padding-bottom: 0;"><p id="type6"></p></div>'
+					+'<div class="line"><p id="type7"></p></div>'
+					+'<div class="line"><div id="loadingBarContainer"><div class="loadingBar"></div></div><p id="type8" style="padding-left: 1em;"></p></div>'
+					+'<div class="line"><p id="type9"></p></div>'
+					+'<div class="line"><p id="type10"></p></div>'
+					+'<div class="line"><p id="type11"></p></div>';
+			
+				await sleep(2000);
+				document.getElementById('box').classList.remove('blinkingBox');
+			
+				//j is the index of the text, i is the index of the type
+				var j = 1;
+				for(let i = 1; j < text.length-1; i++){
+					console.log('i: '+i+' j: '+j);
+					await type('type'+i, text[j]);
+					j++;
+					//displays loading bar
+					if(i == 8){
+						document.getElementById('loadingBarContainer').style.setProperty('display', 'inline-block');
+						await sleep(5000);
+						document.querySelector('.loadingBar').classList.remove('loadingBar');
+						document.getElementById('loadingBarContainer').style.setProperty('background-color', '#24F311');
+					}
+					await sleep(1000);
+					if(i >= 8){
+						await type('type'+i, text[j]);
+						await sleep(1000);
+						j++;
+					}
+				}
+				windowHTML.innerHTML += '<div class="line"><p>'+spanifyText(text[text.length-1])+'</p><div id="box" class="blinkingBox"></div></div>'
+				await sleep(3000);
+
+				window.location.href='exit.html';
+			}
+
+			async function type(elementId, textString){
+				element = document.getElementById(elementId);
+				for(var i = 0; i < textString.length; i++){
+					element.innerHTML += '<span>'+textString.charAt(i)+'</span>';
+					await sleep(TYPE_SPEED);
+				}
+			}
+		</script>
+	</body>
+
+</html>
